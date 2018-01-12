@@ -1,8 +1,10 @@
 package zoo.model;
 
-/**
- * Created by Taisia on 24.12.2017.
- */
-public interface AnimalBreed {
-    String getTypeName();
+import java.io.Serializable;
+
+public interface AnimalBreed extends Serializable {
+    /**
+     * Getter для получения названия породы (breed) от конкретных животных
+     */
+    String getBreedName();
 }

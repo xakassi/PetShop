@@ -5,9 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import zoo.config.PetShopConfig;
 
-/**
- * Created by Taisia on 29.12.2017.
- */
 public class Main {
     @Autowired
     private SwingGUI swingGUI;

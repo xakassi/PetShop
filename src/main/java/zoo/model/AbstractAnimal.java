@@ -2,20 +2,37 @@ package zoo.model;
 
 import java.util.Random;
 
-/**
- * Created by Taisia on 24.12.2017.
- */
 public abstract class AbstractAnimal implements Animal {
     protected AnimalBreed breed;
     protected String name;
     protected Integer cost;
     protected AnimalCharacter character;
+    protected Integer degreeOfPollution;
 
-    public AbstractAnimal(AnimalBreed breed, String name, Integer cost, AnimalCharacter character) {
+    public enum AnimalType {
+        CAT, DOG, WOLF;
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case WOLF:
+                    return "Волк";
+                case CAT:
+                    return "Кот";
+                case DOG:
+                    return "Собака";
+                default:
+                    return null;
+            }
+        }
+    }
+
+    public AbstractAnimal(AnimalBreed breed, String name, Integer cost, AnimalCharacter character, Integer degreeOfPollution) {
         this.breed = breed;
         this.name = name;
         this.cost = cost;
         this.character = character;
+        this.degreeOfPollution = degreeOfPollution;
     }
 
     AbstractAnimal(AnimalBreed[] breeds) {
@@ -31,6 +48,7 @@ public abstract class AbstractAnimal implements Animal {
         this.name = name;
         this.cost = cost;
         this.character = character;
+        this.degreeOfPollution = 0;
     }
 
     @Override
@@ -54,6 +72,15 @@ public abstract class AbstractAnimal implements Animal {
     }
 
     @Override
+    public Integer getDegreeOfPollution() {
+        return degreeOfPollution;
+    }
+
+    public void setDegreeOfPollution(Integer degreeOfPollution) {
+        this.degreeOfPollution = degreeOfPollution;
+    }
+
+    @Override
     public String toString() {
         return name;
     }
@@ -68,7 +95,8 @@ public abstract class AbstractAnimal implements Animal {
         if (breed != null ? !breed.equals(animal.breed) : animal.breed != null) return false;
         if (name != null ? !name.equals(animal.name) : animal.name != null) return false;
         if (cost != null ? !cost.equals(animal.cost) : animal.cost != null) return false;
-        return character == animal.character;
+        if (character != animal.character) return false;
+        return degreeOfPollution != null ? degreeOfPollution.equals(animal.degreeOfPollution) : animal.degreeOfPollution == null;
     }
 
     @Override
@@ -77,6 +105,7 @@ public abstract class AbstractAnimal implements Animal {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (cost != null ? cost.hashCode() : 0);
         result = 31 * result + (character != null ? character.hashCode() : 0);
+        result = 31 * result + (degreeOfPollution != null ? degreeOfPollution.hashCode() : 0);
         return result;
     }
 }

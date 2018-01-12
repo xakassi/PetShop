@@ -1,23 +1,15 @@
 package zoo.model;
 
-/**
- * Created by Taisia on 24.12.2017.
- */
-public class Wolf extends Hunter {
-    public Wolf(WolfBreed breed, String name, Integer cost, AnimalCharacter character) {
-        super(breed, name, cost, character);
-        this.breed = breed;
-    }
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public Wolf() {
-        super(WolfBreed.values());
-    }
+public class Wolf extends Hunter {
 
     public enum WolfBreed implements AnimalBreed {
         ARCTIC, RED, TASMANIAN, SIBERIAN, STEPPE, CAUCASIAN;
 
         @Override
-        public String getTypeName() {
+        public String getBreedName() {
             return this.toString();
         }
 
@@ -41,4 +33,21 @@ public class Wolf extends Hunter {
             }
         }
     }
+
+    @JsonCreator
+    public Wolf(@JsonProperty("breed") WolfBreed breed, @JsonProperty("name") String name,
+                @JsonProperty("cost") Integer cost, @JsonProperty("character") AnimalCharacter character,
+                @JsonProperty("degreeOfPollution") Integer degreeOfPollution) {
+        super(breed, name, cost, character, degreeOfPollution);
+    }
+
+    public Wolf() {
+        super(WolfBreed.values());
+    }
+
+    public static Wolf createRandomWolf() {
+        return new Wolf();
+    }
+
+
 }

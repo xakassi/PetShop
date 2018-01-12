@@ -10,14 +10,26 @@ import zoo.model.Wolf;
 public class PrintingService {
     public String printInformationAboutAnimal(AbstractAnimal animal) {
         String type = "";
-        if (animal.getBreed() instanceof Cat.CatBreed) type = "Кот";
-        else if (animal.getBreed() instanceof Dog.DogBreed) type = "Собака";
-        else if (animal.getBreed() instanceof Wolf.WolfBreed) type = "Волк";
+        if (animal instanceof Cat) type = "Кот";
+        else if (animal instanceof Dog) type = "Собака";
+        else if (animal instanceof Wolf) type = "Волк";
 
-        String characteristic = "Порода: " + animal.getBreed().getTypeName() + "\n" +
+        String characteristic = "Порода: " + animal.getBreed().getBreedName() + "\n" +
                 "Имя: " + animal.getName() + "\n" +
                 "Цена: " + animal.getCost() + "\n" +
-                "Характер: " + animal.getCharacter();
+                "Характер: " + animal.getCharacter() + "\n" +
+                "Степень загрязнённости: " + animal.getDegreeOfPollution() + "%";
+
+        if (animal instanceof Dog) {
+            Dog.Merit merit = ((Dog) animal).getMerit();
+            if (merit != null) {
+                String merits = "Имеет награды:\n";
+                for (String award : merit.getAwards()) {
+                    merits += "  " + award + "\n";
+                }
+                characteristic += "\n" + merits;
+            }
+        }
 
         return type + "\n" + characteristic;
     }

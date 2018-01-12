@@ -1,9 +1,8 @@
 package zoo.model;
 
-/**
- * Created by Taisia on 24.12.2017.
- */
-public enum AnimalCharacter {
+import java.io.Serializable;
+
+public enum AnimalCharacter implements Serializable {
     SOFT, ACTIVE, FIDGET, SMART;
 
     @Override

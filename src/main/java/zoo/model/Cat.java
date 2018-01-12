@@ -1,14 +1,15 @@
 package zoo.model;
 
-/**
- * Created by Taisia on 24.12.2017.
- */
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Cat extends Home {
+
     public enum CatBreed implements AnimalBreed {
         MONGREL, PERSIAN, BRITISH, MAINECOON, SPHINX, SIAMESE;
 
         @Override
-        public String getTypeName() {
+        public String getBreedName() {
             return this.toString();
         }
 
@@ -33,12 +34,17 @@ public class Cat extends Home {
         }
     }
 
-    public Cat(CatBreed breed, String name, Integer cost, AnimalCharacter character) {
-        super(breed, name, cost, character);
+    @JsonCreator
+    public Cat(@JsonProperty("breed") CatBreed breed, @JsonProperty("name") String name, @JsonProperty("cost") Integer cost,
+               @JsonProperty("character") AnimalCharacter character, @JsonProperty("degreeOfPollution") Integer degreeOfPollution) {
+        super(breed, name, cost, character, degreeOfPollution);
     }
 
     public Cat() {
         super(CatBreed.values());
     }
 
+    public static Cat createRandomCat() {
+        return new Cat();
+    }
 }
